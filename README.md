@@ -72,6 +72,7 @@ ul#shlider {
     left: 0;
     width: width of all your slides combined;
     height: height of your slide;
+}
     
 ul#shlider li {
     display: block;
