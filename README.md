@@ -30,6 +30,7 @@ I use the clearfix from [HTML5 Boilerplate](http://www.html5boilerplate.com) to 
 
 Here's a basic idea of some CSS that will get you on your way:
 
+```css
 #shliderContainer {
     width: width of your slides;
     height: height of your slides;
@@ -80,6 +81,7 @@ ul#shlider li {
     margin: 0;
     position: relative;
 }
+```
 
 ### jQuery
 
