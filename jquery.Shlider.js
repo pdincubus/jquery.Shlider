@@ -10,13 +10,13 @@
   
 	// settings
 	var settings = $.extend( {
-	  'animationDuration' 		 : 500,			     //milliseconds
-	  'slideEasing'				 : 'swing',		     //default options are swing or linear
-      'navId'                    : 'shliderNav',     //create a blank div with an id
-      'navIncludeNumSlides'      : false,            //left and right nav plus number of slides shown
-      'navNextClass'             : 'shlideNext',     //pick a class, any class
-      'navPrevClass'             : 'shlidePrev',     //see above
-      'navNumClass'              : 'shlideNum'       //see above above
+        'animationDuration'         : 500,              //milliseconds
+        'slideEasing'               : 'swing',          //default options are swing or linear
+        'navId'                     : 'shliderNav',     //create a blank div with an id
+        'navIncludeNumSlides'       : false,            //left and right nav plus number of slides shown
+        'navNextClass'              : 'shlideNext',     //pick a class, any class
+        'navPrevClass'              : 'shlidePrev',     //see above
+        'navNumClass'               : 'shlideNum'       //see above above
 	}, options);
 
 	return this.each(function() {
