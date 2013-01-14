@@ -1,6 +1,6 @@
 # jquery.Shlider plugin
 
-Turns a <ul> into a very simple but sexy shlidey shlider.
+Turns a ```<ul>``` into a very simple but sexy shlidey shlider that can slide one or more list items at once.
 
 ## Basic example
 
