@@ -14,9 +14,9 @@
         'slideEasing'               : 'swing',          //default options are swing or linear
         'navId'                     : 'shliderNav',     //create a blank div with an id
         'navIncludeNumSlides'       : false,            //left and right nav plus number of slides shown
-        'navNextClass'              : 'shlideNext',     //pick a class, any class
-        'navPrevClass'              : 'shlidePrev',     //see above
-        'navNumClass'               : 'shlideNum',      //see above above
+        'navNextId'                 : 'shlideNext',     //pick an ID
+        'navPrevId'                 : 'shlidePrev',     //see above
+        'navNumClass'               : 'shlideNum',      //pick a class
         'slidesAtOnce'				: 1					//do you want more than one slide to move at once?
 	}, options);
 
@@ -30,26 +30,26 @@
         var slideWidth = $(slide).width();
         
         //create left and right nav
-        var navHtml = '<span class="' + settings.navPrevClass + '">&lt;</span>';
+        var navHtml = '<span id="' + settings.navPrevId + '">&lt;</span>';
         if(settings.navIncludeNumSlides==true){
             //do we want to know what slide we're on?
             var navHtml = navHtml + '<span class="' + settings.navNumClass + '">1 of ' + slidings + '</span>';
         }
-        var navHtml = navHtml + '<span class="' + settings.navNextClass + '">&gt;</span>';
+        var navHtml = navHtml + '<span id="' + settings.navNextId + '">&gt;</span>';
         
         //add the nav to the nav element
         $('#' + settings.navId).append(navHtml);
         //diable previous to start with, I mean we're already at the beginning.
-        $('.'+settings.navPrevClass).addClass('disabled');        
+        $('#'+settings.navPrevId).addClass('disabled');        
         
         //what happens when we click previous?
-        $('.'+settings.navPrevClass).on('click', function(){
+        $('#'+settings.navPrevId).on('click', function(){
             if(currentSlide==1){
                 //we're at the beginning, just disable the button
                 return;
             }else{
                 //ensure we don't have any disabled buttons
-                $('.'+settings.navNextClass+', .'+settings.navPrevClass).removeClass('disabled');
+                $('#'+settings.navNextId+', #'+settings.navPrevId).removeClass('disabled');
                 
                 //do the shhhhlide
                 $(slides).animate({
@@ -66,19 +66,19 @@
                 
                 //disable button if we've just reached the first slide again
                 if(currentSlide==1){
-                    $('.'+settings.navPrevClass).addClass('disabled');
+                    $('#'+settings.navPrevId).addClass('disabled');
                 }
             }
         });
         
         //what happens when we click next?
-        $('.'+settings.navNextClass).on('click', function(){
+        $('#'+settings.navNextId).on('click', function(){
             if(currentSlide==slidings){
                 //we're at the beginning, just disable the button
                 return;
             }else{
                 //ensure we don't have any disabled buttons
-                $('.'+settings.navNextClass+', .'+settings.navPrevClass).removeClass('disabled');
+                $('#'+settings.navNextId+', #'+settings.navPrevId).removeClass('disabled');
                 
                 //do the shhhhlide
                 $(slides).animate({
@@ -95,7 +95,7 @@
                 
                 //disable button if we've just reached the last slide
                 if(currentSlide==slidings){
-                    $('.'+settings.navNextClass).addClass('disabled');
+                    $('#'+settings.navNextId).addClass('disabled');
                 }
             }
         });
