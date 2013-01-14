@@ -26,7 +26,7 @@ Turns a <ul> into a very simple but sexy shlidey shlider.
 
 ### CSS
 
-I use the clearfix from [HTML5 Boilerplate](http://www.html5boilerplate.com) to clear the floated <li> elements.
+I use the clearfix from [HTML5 Boilerplate](http://www.html5boilerplate.com) to clear the floated ```<li>``` elements.
 
 Here's a basic idea of some CSS that will get you on your way:
 
@@ -94,7 +94,7 @@ Make sure you have called jQuery, pulled in the shlider js file (and easing if y
 <script type="text/javascript" src="/path/to/js/jquery.Shlider.js"></script>
 ```
 
-Call shlider to run on the <ul> inside your <div> container. Ensure you have set an ID on it! This can be on $(document).ready() if you prefer. I use $(window).load so that I know all images, etc have finished loading before anything happens.
+Call shlider to run on the ```<ul>``` inside your ```<div>``` container. Ensure you have set an ID on it! This can be on ```$(document).ready()``` if you prefer. I use ```$(window).load``` so that I know all images, etc have finished loading before anything happens.
 
 Here are all the possible settings, and their defaults
 
