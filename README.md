@@ -47,7 +47,7 @@ Here's a basic idea of some CSS that will get you on your way:
     font-size: 18px;
 }
 
-#shliderNav span.prev, #shliderNav span..next {
+#shliderNav span.shlidePrev, #shliderNav span.shlideNext {
     cursor: pointer;
     padding: 2px 5px;
     display: inline-block;
@@ -57,7 +57,7 @@ Here's a basic idea of some CSS that will get you on your way:
     color: #ccc;
 }
 
-#shliderNav span.slides {
+#shliderNav span.shlideNum {
     margin: 2px 10px;
     display: inline-block;
 }
