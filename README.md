@@ -55,7 +55,6 @@ Here's a basic idea of some CSS that will get you on your way:
 
 #shliderNav span.disabled {
     color: #ccc;
-    color: fade(#fff,50%);
 }
 
 #shliderNav span.slides {
