@@ -2,6 +2,8 @@
 
 Turns a ```<ul>``` into a very simple but sexy shlidey shlider that can slide one or more list items at once.
 
+It's really tiny - just 4,400 bytes uncompressed, 1,558 bytes compressed!
+
 There's a couple of demos to see it in action: [Basic, one slide at a time](http://pdincubus.github.com/jquery.Shlider/index.html) or [Three slides at once](http://pdincubus.github.com/jquery.Shlider/multiple.html)
 
 ## Basic example
