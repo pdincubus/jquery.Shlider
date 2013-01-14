@@ -107,7 +107,8 @@ $(window).load(function() {
         'navIncludeNumSlides'   : false,            //left and right nav plus number of slides shown
         'navNextClass'          : 'shlideNext',     //pick a class, any class
         'navPrevClass'          : 'shlidePrev',     //see above
-        'navNumClass'           : 'shlideNum'       //see above above
+        'navNumClass'           : 'shlideNum',      //see above above
+        'slidesAtOnce'			: 1				    //do you want more than one slide to move at once?
     });
 });
 ```
