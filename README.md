@@ -4,7 +4,7 @@ Turns a ```<ul>``` into a very simple but sexy shlidey shlider that can slide on
 
 It's really tiny - just <del>4,400</del> 7,972 bytes uncompressed, <del>1,558</del> 2,238 bytes compressed! (And most of the 8KB uncompressed is space and comments!)
 
-There's a couple of demos to see it in action: [Basic, one slide at a time](http://pdincubus.github.com/jquery.Shlider/index.html) or [Three slides at once](http://pdincubus.github.com/jquery.Shlider/multiple.html)
+There's a couple of demos to see it in action: [Basic, one slide at a time](http://pdincubus.github.com/jquery.Shlider/index.html), [Three slides at once](http://pdincubus.github.com/jquery.Shlider/multiple.html) or [Auto slider](http://pdincubus.github.com/jquery.Shlider/auto.html)
 
 ## Basic example
 
