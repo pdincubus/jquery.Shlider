@@ -2,7 +2,7 @@
 
 Turns a ```<ul>``` into a very simple but sexy shlidey shlider that can slide one or more list items at once.
 
-It's really tiny - just 4,400 bytes uncompressed, 1,558 bytes compressed!
+It's really tiny - just <del>4,400</del> 7,972 bytes uncompressed, <del>1,558</del> 2,238 bytes compressed! (And most of the 8KB uncompressed is space and comments!)
 
 There's a couple of demos to see it in action: [Basic, one slide at a time](http://pdincubus.github.com/jquery.Shlider/index.html) or [Three slides at once](http://pdincubus.github.com/jquery.Shlider/multiple.html)
 
@@ -42,7 +42,7 @@ Here's a basic idea of some CSS that will get you on your way:
     overflow: hidden;
     position: relative;
 }
-    
+
 #shliderNav {
     position: absolute;
     top: 10px;
@@ -76,7 +76,7 @@ ul#shlider {
     width: width of all your slides combined;
     height: height of your slide;
 }
-    
+
 ul#shlider li {
     display: block;
     float: left;
@@ -104,18 +104,21 @@ Here are all the possible settings, and their defaults
 ```javascript
 $(window).load(function() {
     $('#shlider').shlider({
-        'animationDuration' 	: 500,			    //milliseconds
-        'slideEasing'			: 'swing',		    //default options are swing or linear
-        'navId'                 : 'shliderNav',     //create a blank div with an id
-        'navIncludeNumSlides'   : false,            //left and right nav plus number of slides shown
-        'navNextClass'          : 'shlideNext',     //pick a class, any class
-        'navPrevClass'          : 'shlidePrev',     //see above
-        'navNumClass'           : 'shlideNum',      //see above above
-        'slidesAtOnce'			: 1				    //do you want more than one slide to move at once?
+        'animationDuration'     : 500,          //milliseconds
+        'slideEasing'           : 'swing',      //default options are swing or linear
+        'includeNav'            : true,         //do you want to output next/prev buttons?
+        'navId'                 : 'shliderNav', //create a blank div with an id
+        'navIncludeNumSlides'   : false,        //left and right nav plus number of slides shown
+        'navNextId'             : 'shlideNext', //pick an ID
+        'navPrevId'             : 'shlidePrev', //see above
+        'navNumClass'           : 'shlideNum',  //pick a class
+        'slidesAtOnce'          : 1,            //do you want more than one slide to move at once?
+        'autoSlide'             : false,        //wait for use interaction?
+        'waitTime'              : 3000          //how long between auto slides?
     });
 });
 ```
 
 ## Browsers
 
-It's pretty simple as a plugin so should work on any graphical browser with javascript enabled. I've tested in Firefox and Chrome. So likely it will work in Opera, Safari, IE10, IE9, IE8, and maybe IE7 & IE6 at a push. Maybe. 
+It's pretty simple as a plugin so should work on any graphical browser with javascript enabled. I've tested in Firefox and Chrome. So likely it will work in Opera, Safari, IE10, IE9, IE8, and maybe IE7 & IE6 at a push. Maybe.
