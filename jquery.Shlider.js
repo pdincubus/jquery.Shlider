@@ -108,6 +108,10 @@
 
                     if (currentSlide == 1) {
                         //we're at the beginning, just disable the button
+                        if (settings.autoSlide == true) {
+                            autoSlideTimer = setInterval(autoSliding, settings.waitTime);
+                        }
+
                         return;
                     }else {
                         //ensure we don't have any disabled buttons
@@ -152,6 +156,10 @@
 
                     if (currentSlide == slidings) {
                         //we're at the beginning, just disable the button
+                        if (settings.autoSlide == true) {
+                            autoSlideTimer = setInterval(autoSliding, settings.waitTime);
+                        }
+
                         return;
                     }else {
                         //ensure we don't have any disabled buttons
