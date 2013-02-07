@@ -97,7 +97,9 @@
                 $('#' + settings.navPrevId).on('click', function() {
 
                     //interrupt the timer for auto if it's going
-                    clearInterval(autoSlideTimer);
+                    if (settings.autoSlide == true) {
+                        clearInterval(autoSlideTimer);
+                    }
 
                     //prevent animation queueing
                     if ($(slides).is(':animated') === true) {
@@ -130,14 +132,18 @@
                         }
                     }
 
-                    autoSlideTimer = setInterval(autoSliding, settings.waitTime);
+                    if (settings.autoSlide == true) {
+                        autoSlideTimer = setInterval(autoSliding, settings.waitTime);
+                    }
                 });
 
                 //what happens when we click next?
                 $('#' + settings.navNextId).on('click', function() {
 
                     //interrupt the timer for auto if it's going
-                    clearTimeout(autoSlideTimer);
+                    if (settings.autoSlide == true) {
+                        clearTimeout(autoSlideTimer);
+                    }
 
                     //prevent animation queueing
                     if ($(slides).is(':animated') === true) {
@@ -170,7 +176,9 @@
                         }
                     }
 
-                    autoSlideTimer = setInterval(autoSliding, settings.waitTime);
+                    if (settings.autoSlide == true) {
+                        autoSlideTimer = setInterval(autoSliding, settings.waitTime);
+                    }
                 });
 
             }//end includeNav stuff
