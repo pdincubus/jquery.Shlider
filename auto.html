@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,7 +9,7 @@
 			}
 
 			#shliderContainer {
-				width: 750px;
+				width: 500px;
 				height: 330px;
 				margin: 0 auto;
 				overflow: hidden;
@@ -60,7 +61,7 @@
 			ul#shlider li {
 				display: block;
 				float: left;
-				width: 250px;
+				width: 500px;
 				height: 330px;
 				margin: 0;
 				position: relative;
@@ -71,7 +72,7 @@
 			#information {
 				background: #fff;
 				color: #000;
-				width: 730px;
+				width: 480px;
 				margin: 20px auto;
 				padding: 10px;
 			}
@@ -87,31 +88,19 @@
 		<div id="shliderContainer">
 			<ul class="cf" id="shlider">
 				<li>
-					<img src="img/6881280664_3da4704890-2.jpg" alt="">
+					<img src="http://pdincubus.github.com/jquery.Shlider/img/6881280664_3da4704890.jpg" alt="">
 				</li>
 				<li>
-					<img src="img/7181531455_a01b90f87d-2.jpg" alt="">
+					<img src="http://pdincubus.github.com/jquery.Shlider/img/7181531455_a01b90f87d.jpg" alt="">
 				</li>
 				<li>
-					<img src="img/7551308320_dbbb75c71b-2.jpg" alt="">
+					<img src="http://pdincubus.github.com/jquery.Shlider/img/7551308320_dbbb75c71b.jpg" alt="">
 				</li>
 				<li>
-					<img src="img/7551311698_666de2a3a8-2.jpg" alt="">
+					<img src="http://pdincubus.github.com/jquery.Shlider/img/7551311698_666de2a3a8.jpg" alt="">
 				</li>
 				<li>
-					<img src="img/7581409432_972b80d832-2.jpg" alt="">
-				</li>
-				<li>
-					<img src="img/6881280664_3da4704890-2.jpg" alt="">
-				</li>
-				<li>
-					<img src="img/6881280664_3da4704890-2.jpg" alt="">
-				</li>
-				<li>
-					<img src="img/7181531455_a01b90f87d-2.jpg" alt="">
-				</li>
-				<li>
-					<img src="img/7551308320_dbbb75c71b-2.jpg" alt="">
+					<img src="http://pdincubus.github.com/jquery.Shlider/img/7581409432_972b80d832.jpg" alt="">
 				</li>
 			</ul>
 			<!--this is for the nav next/prev/counter-->
@@ -120,7 +109,7 @@
 
 		<div id="information">
 			<p>
-				<a href="http://pdincubus.github.com/jquery.Shlider/index.html">Demo - Standard one slide at once</a> | Demo - Multiple slides at once | <a href="http://pdincubus.github.com/jquery.Shlider/auto.html">Demo - autoSlide (one slide at a time)</a> | <a href="https://github.com/pdincubus/jquery.Shlider">Get the source from the GitHub page</a>
+				<a href="http://pdincubus.github.com/jquery.Shlider/index.html">Demo - Standard one slide at once</a> | <a href="http://pdincubus.github.com/jquery.Shlider/multiple.html">Demo - Multiple slides at once</a> | Demo - autoSlide (one slide at a time) | <a href="https://github.com/pdincubus/jquery.Shlider">Get the source from the GitHub page</a>
 			</p>
 		</div>
 
@@ -130,14 +119,17 @@
 		<script>
 $(window).load(function() {
     $('#shlider').shlider({
-        'animationDuration'     : 500,              //milliseconds
-        'slideEasing'           : 'easeInOutExpo',          //default options are swing or linear
-        'navId'                 : 'shliderNav',     //create a blank div with an id
-        'navIncludeNumSlides'   : false,             //left and right nav plus number of slides shown
-        'navNextClass'          : 'shlideNext',     //pick a class, any class
-        'navPrevClass'          : 'shlidePrev',     //see above
-        'navNumClass'           : 'shlideNum',      //see above above
-        'slidesAtOnce'			: 3					//do you want more than one slide to move at once?
+        'animationDuration'         : 500,              //milliseconds
+        'slideEasing'               : 'swing',          //default options are swing or linear
+        'includeNav'                : true,             //do you want to output next/prev buttons?
+        'navId'                     : 'shliderNav',     //create a blank div with an id
+        'navIncludeNumSlides'       : true,            //left and right nav plus number of slides shown
+        'navNextId'                 : 'shlideNext',     //pick an ID
+        'navPrevId'                 : 'shlidePrev',     //see above
+        'navNumClass'               : 'shlideNum',      //pick a class
+        'slidesAtOnce'				: 1,				//do you want more than one slide to move at once?
+        'autoSlide'                 : true,             //wait for use interaction?
+        'waitTime'                  : 3000              //how long between auto slides?
     });
 });
 		</script>
