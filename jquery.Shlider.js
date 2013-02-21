@@ -34,9 +34,6 @@
 
             if (settings.autoSlide == true) {
 
-                //set auto slide timer
-                var autoSlideTimer = setInterval(autoSliding, settings.waitTime);
-
                 //what to do when the timer function is called
                 function autoSliding() {
                     if (currentSlide == slidings) {
@@ -76,6 +73,9 @@
                         }
                     }
                 }
+
+                //set auto slide timer
+                var autoSlideTimer = setInterval(autoSliding, settings.waitTime);
             }//end autoSlide
 
             if (settings.includeNav == true) {
