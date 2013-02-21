@@ -32,7 +32,7 @@
             var currentSlide = 1;
             var slideWidth = $(slide).width();
 
-            if (settings.autoSlide == true) {
+            if (settings.autoSlide === true) {
 
                 //what to do when the timer function is called
                 function autoSliding() {
@@ -49,7 +49,7 @@
 
                         $('#' + settings.navId + ' .' + settings.navNumClass).text('1 of ' + slidings);
                     }else {
-                        if (settings.includeNav == true) {
+                        if (settings.includeNav === true) {
                             //ensure we don't have any disabled buttons
                             $('#' + settings.navNextId + ', #' + settings.navPrevId).removeClass('disabled');
                         }
@@ -63,12 +63,12 @@
                         currentSlide++;
 
                         //update nav counter
-                        if (settings.navIncludeNumSlides == true && settings.includeNav == true) {
+                        if (settings.navIncludeNumSlides === true && settings.includeNav === true) {
                             $('#' + settings.navId + ' .' + settings.navNumClass).text(currentSlide + ' of ' + slidings);
                         }
 
                         //disable button if we've just reached the last slide
-                        if (currentSlide == slidings && settings.includeNav == true) {
+                        if (currentSlide == slidings && settings.includeNav === true) {
                             $('#' + settings.navNextId).addClass('disabled');
                         }
                     }
@@ -78,16 +78,16 @@
                 var autoSlideTimer = setInterval(autoSliding, settings.waitTime);
             }//end autoSlide
 
-            if (settings.includeNav == true) {
+            if (settings.includeNav === true) {
                 //we only need to add it if it doesn't exist
                 if(!$('#' + settings.navPrevId).length) {
                     //create left and right nav
                     var navHtml = '<span id="' + settings.navPrevId + '">&lt;</span>';
-                    if (settings.navIncludeNumSlides == true) {
+                    if (settings.navIncludeNumSlides === true) {
                         //do we want to know what slide we're on?
-                        var navHtml = navHtml + '<span class="' + settings.navNumClass + '">1 of ' + slidings + '</span>';
+                        navHtml = navHtml + '<span class="' + settings.navNumClass + '">1 of ' + slidings + '</span>';
                     }
-                    var navHtml = navHtml + '<span id="' + settings.navNextId + '">&gt;</span>';
+                    navHtml = navHtml + '<span id="' + settings.navNextId + '">&gt;</span>';
 
                     //add the nav to the nav element
                     $('#' + settings.navId).append(navHtml);
@@ -98,7 +98,7 @@
                     $('#' + settings.navPrevId).on('click', function() {
 
                         //interrupt the timer for auto if it's going
-                        if (settings.autoSlide == true) {
+                        if (settings.autoSlide === true) {
                             clearInterval(autoSlideTimer);
                         }
 
@@ -109,7 +109,7 @@
 
                         if (currentSlide == 1) {
                             //we're at the beginning, just disable the button
-                            if (settings.autoSlide == true) {
+                            if (settings.autoSlide === true) {
                                 autoSlideTimer = setInterval(autoSliding, settings.waitTime);
                             }
 
@@ -127,7 +127,7 @@
                             currentSlide--;
 
                             //update nav counter
-                            if (settings.navIncludeNumSlides == true) {
+                            if (settings.navIncludeNumSlides === true) {
                                 $('#' + settings.navId + ' .' + settings.navNumClass).text(currentSlide + ' of ' + slidings);
                             }
 
@@ -137,7 +137,7 @@
                             }
                         }
 
-                        if (settings.autoSlide == true) {
+                        if (settings.autoSlide === true) {
                             autoSlideTimer = setInterval(autoSliding, settings.waitTime);
                         }
                     });
@@ -147,7 +147,7 @@
                 $('#' + settings.navNextId).on('click', function() {
 
                     //interrupt the timer for auto if it's going
-                    if (settings.autoSlide == true) {
+                    if (settings.autoSlide === true) {
                         clearTimeout(autoSlideTimer);
                     }
 
@@ -158,7 +158,7 @@
 
                     if (currentSlide == slidings) {
                         //we're at the beginning, just disable the button
-                        if (settings.autoSlide == true) {
+                        if (settings.autoSlide === true) {
                             autoSlideTimer = setInterval(autoSliding, settings.waitTime);
                         }
 
@@ -176,7 +176,7 @@
                         currentSlide++;
 
                         //update nav counter
-                        if (settings.navIncludeNumSlides == true) {
+                        if (settings.navIncludeNumSlides === true) {
                             $('#' + settings.navId + ' .' + settings.navNumClass).text(currentSlide + ' of ' + slidings);
                         }
 
@@ -186,7 +186,7 @@
                         }
                     }
 
-                    if (settings.autoSlide == true) {
+                    if (settings.autoSlide === true) {
                         autoSlideTimer = setInterval(autoSliding, settings.waitTime);
                     }
                 });
