@@ -32,48 +32,47 @@
             var currentSlide = 1;
             var slideWidth = $(slide).width();
 
-            if (settings.autoSlide === true) {
+            //what to do when the timer function is called
+            function autoSliding() {
+                if (currentSlide === slidings) {
+                    //we're at the beginning, rewind and reset
+                    currentSlide = 1;
 
-                //what to do when the timer function is called
-                function autoSliding() {
-                    if (currentSlide == slidings) {
-                        //we're at the beginning, rewind and reset
-                        currentSlide = 1;
+                    $('#' + settings.navNextId).removeClass('disabled');
+                    $('#' + settings.navPrevId).addClass('disabled');
 
-                        $('#' + settings.navNextId).removeClass('disabled');
-                        $('#' + settings.navPrevId).addClass('disabled');
+                    $(slides).animate({
+                        left: 0
+                    }, settings.animationDuration, settings.slideEasing);
 
-                        $(slides).animate({
-                            left: 0
-                        }, settings.animationDuration, settings.slideEasing);
+                    $('#' + settings.navId + ' .' + settings.navNumClass).text('1 of ' + slidings);
+                }else {
+                    if (settings.includeNav === true) {
+                        //ensure we don't have any disabled buttons
+                        $('#' + settings.navNextId + ', #' + settings.navPrevId).removeClass('disabled');
+                    }
 
-                        $('#' + settings.navId + ' .' + settings.navNumClass).text('1 of ' + slidings);
-                    }else {
-                        if (settings.includeNav === true) {
-                            //ensure we don't have any disabled buttons
-                            $('#' + settings.navNextId + ', #' + settings.navPrevId).removeClass('disabled');
-                        }
+                    //do the shhhhlide
+                    $(slides).animate({
+                        left: '-=' + slideWidth * settings.slidesAtOnce
+                    }, settings.animationDuration, settings.slideEasing);
 
-                        //do the shhhhlide
-                        $(slides).animate({
-                            left: '-=' + slideWidth * settings.slidesAtOnce
-                        }, settings.animationDuration, settings.slideEasing);
+                    //increment the counter
+                    currentSlide++;
 
-                        //increment the counter
-                        currentSlide++;
+                    //update nav counter
+                    if (settings.navIncludeNumSlides === true && settings.includeNav === true) {
+                        $('#' + settings.navId + ' .' + settings.navNumClass).text(currentSlide + ' of ' + slidings);
+                    }
 
-                        //update nav counter
-                        if (settings.navIncludeNumSlides === true && settings.includeNav === true) {
-                            $('#' + settings.navId + ' .' + settings.navNumClass).text(currentSlide + ' of ' + slidings);
-                        }
-
-                        //disable button if we've just reached the last slide
-                        if (currentSlide == slidings && settings.includeNav === true) {
-                            $('#' + settings.navNextId).addClass('disabled');
-                        }
+                    //disable button if we've just reached the last slide
+                    if (currentSlide === slidings && settings.includeNav === true) {
+                        $('#' + settings.navNextId).addClass('disabled');
                     }
                 }
+            }
 
+            if (settings.autoSlide === true) {
                 //set auto slide timer
                 var autoSlideTimer = setInterval(autoSliding, settings.waitTime);
             }//end autoSlide
@@ -107,7 +106,7 @@
                             return;
                         }
 
-                        if (currentSlide == 1) {
+                        if (currentSlide === 1) {
                             //we're at the beginning, just disable the button
                             if (settings.autoSlide === true) {
                                 autoSlideTimer = setInterval(autoSliding, settings.waitTime);
@@ -132,7 +131,7 @@
                             }
 
                             //disable button if we've just reached the first slide again
-                            if (currentSlide == 1) {
+                            if (currentSlide === 1) {
                                 $('#' + settings.navPrevId).addClass('disabled');
                             }
                         }
@@ -156,7 +155,7 @@
                         return;
                     }
 
-                    if (currentSlide == slidings) {
+                    if (currentSlide === slidings) {
                         //we're at the beginning, just disable the button
                         if (settings.autoSlide === true) {
                             autoSlideTimer = setInterval(autoSliding, settings.waitTime);
@@ -181,7 +180,7 @@
                         }
 
                         //disable button if we've just reached the last slide
-                        if (currentSlide == slidings) {
+                        if (currentSlide === slidings) {
                             $('#' + settings.navNextId).addClass('disabled');
                         }
                     }
