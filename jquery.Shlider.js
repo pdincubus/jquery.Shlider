@@ -20,7 +20,7 @@
             'navNumClass' : 'shlideNum',    //pick a class
             'slidesAtOnce' : 1,             //do you want more than one slide to move at once?
             'autoSlide' : false,            //wait for use interaction?
-            'waitTime' : 3000               //how long between auto slides?
+            'waitTime' : 3000,              //duration of pause between shlides
         }, options);
 
         return this.each(function() {
