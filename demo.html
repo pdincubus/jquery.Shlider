@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                background: #000;
+                font: 14px 'helvetica neue', helvetica, arial, verdana, sans-serif;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="shlider">
+            <div class="container">
+                <div>
+                    <img src="img/6881280664_3da4704890-2.jpg" alt="">
+                </div>
+                <div>
+                    <img src="img/7181531455_a01b90f87d-2.jpg" alt="">
+                </div>
+                <div>
+                    <img src="img/7551308320_dbbb75c71b-2.jpg" alt="">
+                </div>
+                <div>
+                    <img src="img/7551311698_666de2a3a8-2.jpg" alt="">
+                </div>
+                <div>
+                    <img src="img/7581409432_972b80d832-2.jpg" alt="">
+                </div>
+                <div>
+                    <img src="img/6881280664_3da4704890-2.jpg" alt="">
+                </div>
+                <div>
+                    <img src="img/6881280664_3da4704890-2.jpg" alt="">
+                </div>
+                <div>
+                    <img src="img/7181531455_a01b90f87d-2.jpg" alt="">
+                </div>
+                <div>
+                    <img src="img/7551308320_dbbb75c71b-2.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script type="text/javascript" src="plugins.js"></script>
+        <script type="text/javascript" src="Shlider.js"></script>
+        <script>
+            $(window).load(function() {
+                $('.shlider').shlider({
+                    'animationDuration' : 500,
+                    'slideEasing' : 'swing',
+                    'slide': '.slide',
+                    'includeNav' : true,
+                    'navIncludeNumSlides' : false,
+                    'navElem' : 'shliderNav',
+                    'navNextElem' : '.shlideNext',
+                    'navPrevElem' : '.shlidePrev',
+                    'navNumElem' : '.shlideNum',
+                    'slidesAtOnce' : 1,
+                    'autoSlide' : false,
+                    'waitTime' : 3000,
+                    'accessible': true
+                });
+            });
+        </script>
+    </body>
+</html>

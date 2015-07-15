@@ -89,6 +89,7 @@
         'navNextElem' : '.shlideNext',
         'navPrevElem' : '.shlidePrev',
         'navNumElem' : '.shlideNum',
+        'navDisabledClass': 'disabled',
         'slidesAtOnce' : 1,
         'autoSlide' : false,
         'waitTime' : 3000,
