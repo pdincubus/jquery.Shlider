@@ -19,7 +19,8 @@
             this.$slides = this.$element.find(this.options.slide);
             this.currentSlide = 1;
             this.numSlides = this.$slides.length;
-            this.totalSlidings = Math.ceil(this.numSlides / this.options.slidesAtOnce);
+            this.totalSlidings = 0;
+            this.distance = 0;
             this.slideWidth = this.$slides.eq(0).width();
             this.containerWidth = ( this.slideWidth * this.numSlides );
             this.setup();
@@ -32,7 +33,32 @@
         setup: function() {
             var that = this;
 
-            //console.log('slides: ', this.$slides, ' numSlides: ', this.numSlides, ' totalSlidings: ', this.totalSlidings, ' slideWidth: ', this.slideWidth, ' containerWidth: ', this.containerWidth);
+            this.checkSlidings();
+
+            //----------------------------------------------------
+            //      responsiveness-layout-niceness
+            //----------------------------------------------------
+            var reLayout = (function () {
+                var timers = {};
+                return function (callback, ms, uniqueId) {
+                    if (!uniqueId) {
+                        uniqueId = "Don't call this twice without a uniqueId";
+                    }
+                    if (timers[uniqueId]) {
+                        clearTimeout (timers[uniqueId]);
+                    }
+                    timers[uniqueId] = setTimeout(callback, ms);
+                };
+            })();
+
+            $(window).resize(function() {
+                reLayout(function() {
+                    that.currentSlide = 1;
+                    that.updateNavNum();
+                    that.recalculateVars();
+                    that.setDimensions();
+                }, 500, 'shlideresizing');
+            });
 
             this.setDimensions();
 
@@ -59,12 +85,37 @@
             });
         },
 
+        checkSlidings: function() {
+            if ( this.options.singleSlideMode == true ) {
+                this.totalSlidings = this.numSlides;
+                this.distance = this.slideWidth;
+                //console.log('single slide mode. distance: ', this.distance, ' , totalSlidings: ', this.totalSlidings );
+            } else {
+                this.totalSlidings = Math.ceil(this.containerWidth / this.$element.width());
+                this.distance = this.$element.width();
+                //console.log('multiple slide mode. distance: ', this.distance, ' , totalSlidings: ', this.totalSlidings );
+            }
+        },
+
+        //----------------------------------------------------
+        //      responsive stuff
+        //----------------------------------------------------
+        recalculateVars: function() {
+            this.slideWidth = this.$slides.eq(0).width();
+            this.containerWidth = ( this.slideWidth * this.numSlides );
+            this.checkSlidings();
+
+            this.currentSlide = 1;
+            this.disableNav(this.options.navPrevElem);
+            this.animateSlide('reset');
+
+            //console.log(' totalSlidings: ', this.totalSlidings, ' slideWidth: ', this.slideWidth, ' containerWidth: ', this.containerWidth);
+        },
+
         //----------------------------------------------------
         //      set up any dimensions we need
         //----------------------------------------------------
         setDimensions: function() {
-            //console.log('set width of container: ', this.containerWidth);
-
             this.$container.css({
                 width: this.containerWidth
             });
@@ -88,7 +139,6 @@
         //      slide next
         //----------------------------------------------------
         next: function() {
-            console.log('start next, currentSlide: ', this.currentSlide);
             //prevent animation queueing
             if (this.$container.is(':animated') === true) {
                 return;
@@ -122,16 +172,12 @@
             } else {
                 this.disableNav('none');
             }
-
-            console.log('end next, currentSlide: ', this.currentSlide);
         },
 
         //----------------------------------------------------
         //      slide prev
         //----------------------------------------------------
         prev: function() {
-            console.log('start prev, currentSlide: ', this.currentSlide);
-
             //prevent animation queueing
             if (this.$container.is(':animated') === true) {
                 return;
@@ -165,15 +211,12 @@
             } else {
                 this.disableNav('none');
             }
-
-            console.log('end prev, currentSlide: ', this.currentSlide);
         },
 
         //----------------------------------------------------
         //      disable nav when we reach either end
         //----------------------------------------------------
         disableNav: function(button) {
-            console.log('disable button: ', button);
             if ( button == this.options.navNextElem ) {
                 $(this.options.navElem).find(this.options.navNextElem).addClass(this.options.navDisabledClass);
                 $(this.options.navElem).find(this.options.navPrevElem).removeClass(this.options.navDisabledClass);
@@ -189,17 +232,13 @@
         //      animate the slide
         //----------------------------------------------------
         animateSlide: function(direction) {
-            var distance = ( this.slideWidth * this.options.slidesAtOnce );
-
-            //console.log(distance, this.options.slidesAtOnce);
-
             if ( direction == 'next' ) {
                 this.$container.animate({
-                    left: '-=' + distance
+                    left: '-=' + this.distance
                 }, this.options.animationDuration, this.options.slideEasing);
             } else if ( direction == 'prev' ) {
                 this.$container.animate({
-                    left: '+=' + distance
+                    left: '+=' + this.distance
                 }, this.options.animationDuration, this.options.slideEasing);
 
             } else if ( direction == 'reset' ) {
@@ -216,8 +255,6 @@
             if (this.options.navIncludeNumSlides === true) {
                 this.$element.find(this.options.navElem + ' .current').text(this.currentSlide);
                 this.$element.find(this.options.navElem + ' .total').text(this.totalSlidings);
-
-                console.log(this.currentSlide, this.totalSlidings);
             }
         },
 
@@ -241,9 +278,15 @@
 
             navHtml = navHtml + '<button role="button" type="button" class="' + this.options.navNextElem.replace('.','') + '">Next</button></nav>';
 
-            //console.log(navHtml);
-
             this.$element.append(navHtml);
+        },
+
+        destroy: function() {
+            this.$element.removeData('shlider');
+            this.$element.find(this.options.navElem).remove();
+            this.$container.attr('style', '').attr('aria-live', '');
+            this.currentSlide = 1;
+            this.updateNavNum();
         }
     };
 
@@ -282,7 +325,7 @@
         'navPrevElem' : '.shlidePrev',
         'navNumElem' : '.shlideNum',
         'navDisabledClass': 'disabled',
-        'slidesAtOnce' : 1,
+        'singleSlideMode': true,
         'autoSlide' : true,
         'waitTime' : 3000,
         'accessible': true

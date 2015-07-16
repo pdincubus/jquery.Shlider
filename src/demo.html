@@ -9,7 +9,7 @@
             }
 
             .shlider {
-                width: 750px;
+                width: 1000px;
                 height: 360px;
                 position: relative;
                 overflow: hidden;
@@ -50,6 +50,30 @@
                 color: #000;
                 background-color: #ccc;
             }
+
+            @media screen and (min-width: 1200px) {
+                .shlider {
+                    width: 1250px;
+                }
+            }
+
+            @media screen and (min-width: 768px) and (max-width: 1023px) {
+                .shlider {
+                    width: 750px;
+                }
+            }
+
+            @media screen and (min-width: 535px) and (max-width: 767px) {
+                .shlider {
+                    width: 500px;
+                }
+            }
+
+            @media screen and (max-width: 534px) {
+                .shlider {
+                    width: 250px;
+                }
+            }
         </style>
     </head>
 
@@ -86,8 +110,10 @@
             </div>
         </div>
 
+        <button type="button" role="button" id="destroy">Destroy</button>
+
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script type="text/javascript" src="Shlider.js"></script>
+        <script type="text/javascript" src="js/Shlider.js"></script>
         <script>
             $(window).load(function() {
                 $('.shlider').shlider({
@@ -102,11 +128,15 @@
                     'navPrevElem' : '.shlidePrev',
                     'navNumElem' : '.shlideNum',
                     'navDisabledClass': 'disabled',
-                    'slidesAtOnce' : 3,
                     'autoSlide' : false,
                     'waitTime' : 3000,
-                    'accessible': true
+                    'accessible': true,
+                    'singleSlideMode': false
                 });
+            });
+
+            $('#destroy').on('click', function() {
+                $('.shlider').shlider('destroy');
             });
         </script>
     </body>
