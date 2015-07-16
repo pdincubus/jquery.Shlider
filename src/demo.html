@@ -25,7 +25,21 @@
             .shlider .slide {
                 float: left;
                 width: 250px;
+                height: 100%;
                 position: relative;
+            }
+
+            .shlider .slide img {
+                position: absolute;
+                min-height: 100%;
+                min-width: 100%;
+                top: 50%;
+                left: 50%;
+                -webkit-transform: translate(-50%,-50%);
+                -moz-transform: translate(-50%,-50%);
+                -ms-transform: translate(-50%,-50%);
+                -o-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
             }
 
             .shliderNav {
@@ -51,15 +65,23 @@
                 background-color: #ccc;
             }
 
-            @media screen and (min-width: 1200px) {
+            @media screen and (min-width: 1280px) {
                 .shlider {
-                    width: 1250px;
+                    width: 1200px;
+                }
+
+                .shlider .slide {
+                    width: 300px;
                 }
             }
 
             @media screen and (min-width: 768px) and (max-width: 1023px) {
                 .shlider {
-                    width: 750px;
+                    width: 700px;
+                }
+
+                .shlider .slide {
+                    width: 350px;
                 }
             }
 
@@ -71,7 +93,11 @@
 
             @media screen and (max-width: 534px) {
                 .shlider {
-                    width: 250px;
+                    width: 280px;
+                }
+
+                .shlider .slide {
+                    width: 280px;
                 }
             }
         </style>
