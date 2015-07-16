@@ -5,6 +5,50 @@
             body {
                 background: #000;
                 font: 14px 'helvetica neue', helvetica, arial, verdana, sans-serif;
+                margin: 0;
+            }
+
+            .shlider {
+                width: 750px;
+                height: 360px;
+                position: relative;
+                overflow: hidden;
+                margin: 30px auto;
+            }
+
+            .shlider .container {
+                position: relative;
+                width: auto;
+                height: 330px;
+            }
+
+            .shlider .slide {
+                float: left;
+                width: 250px;
+                position: relative;
+            }
+
+            .shliderNav {
+                height: 30px;
+                clear: both;
+                position: relative;
+                background: red;
+                text-align: center;
+            }
+
+            .shliderNav button {
+                border: 0;
+                padding: 10px;
+                text-align: center;
+                color: #fff;
+                background-color: blue;
+                width: 25%;
+                display: inline-block;
+            }
+
+            .shliderNav button.disabled {
+                color: #000;
+                background-color: #ccc;
             }
         </style>
     </head>
@@ -12,52 +56,53 @@
     <body>
         <div class="shlider">
             <div class="container">
-                <div>
+                <div class="slide">
                     <img src="img/6881280664_3da4704890-2.jpg" alt="">
                 </div>
-                <div>
+                <div class="slide">
                     <img src="img/7181531455_a01b90f87d-2.jpg" alt="">
                 </div>
-                <div>
+                <div class="slide">
                     <img src="img/7551308320_dbbb75c71b-2.jpg" alt="">
                 </div>
-                <div>
+                <div class="slide">
                     <img src="img/7551311698_666de2a3a8-2.jpg" alt="">
                 </div>
-                <div>
+                <div class="slide">
                     <img src="img/7581409432_972b80d832-2.jpg" alt="">
                 </div>
-                <div>
+                <div class="slide">
                     <img src="img/6881280664_3da4704890-2.jpg" alt="">
                 </div>
-                <div>
+                <div class="slide">
                     <img src="img/6881280664_3da4704890-2.jpg" alt="">
                 </div>
-                <div>
+                <div class="slide">
                     <img src="img/7181531455_a01b90f87d-2.jpg" alt="">
                 </div>
-                <div>
+                <div class="slide">
                     <img src="img/7551308320_dbbb75c71b-2.jpg" alt="">
                 </div>
             </div>
         </div>
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script type="text/javascript" src="plugins.js"></script>
         <script type="text/javascript" src="Shlider.js"></script>
         <script>
             $(window).load(function() {
                 $('.shlider').shlider({
                     'animationDuration' : 500,
                     'slideEasing' : 'swing',
+                    'container': '.container',
                     'slide': '.slide',
                     'includeNav' : true,
-                    'navIncludeNumSlides' : false,
-                    'navElem' : 'shliderNav',
+                    'navIncludeNumSlides' : true,
+                    'navElem' : '.shliderNav',
                     'navNextElem' : '.shlideNext',
                     'navPrevElem' : '.shlidePrev',
                     'navNumElem' : '.shlideNum',
-                    'slidesAtOnce' : 1,
+                    'navDisabledClass': 'disabled',
+                    'slidesAtOnce' : 3,
                     'autoSlide' : false,
                     'waitTime' : 3000,
                     'accessible': true
