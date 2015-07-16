@@ -15,6 +15,13 @@
             this.type = type;
             this.$element = $(elem);
             this.options = this.getOptions(opts);
+            this.$container = this.$element.find(this.options.container);
+            this.$slides = this.$element.find(this.options.slide);
+            this.currentSlide = 1;
+            this.numSlides = this.$slides.length;
+            this.totalSlidings = Math.ceil(this.numSlides / this.options.slidesAtOnce);
+            this.slideWidth = this.$slides.eq(0).width();
+            this.containerWidth = ( this.slideWidth * this.numSlides );
             this.setup();
         },
 
@@ -23,36 +30,220 @@
         },
 
         setup: function() {
-            var that = this,
-                $slides = this.$element.find(this.options.slide),
-                numSlides = $slides.length,
-                slidings = Math.ceil(numSlides / this.options.slidesAtOnce),
-                currentSlide = 1,
-                slideWidth = $slides.eq(0).width();
+            var that = this;
 
-            console.log('slides: ', $slides, ' numSlides: ', numSlides, ' slidings: ', slidings, ' currentSlide: ', currentSlide, ' slideWidth: ', slideWidth);
+            //console.log('slides: ', this.$slides, ' numSlides: ', this.numSlides, ' totalSlidings: ', this.totalSlidings, ' slideWidth: ', this.slideWidth, ' containerWidth: ', this.containerWidth);
 
-            //------------------------------------------------------------------------------
-            //    accessibility things
-            //------------------------------------------------------------------------------
+            this.setDimensions();
+
             if ( this.options.accessible === true ) {
-                this.$element.find(this.options.container + ' ' + this.options.slide).attr('aria-live', 'assertive');
+                this.$container.attr('aria-live', 'assertive');
             }
 
-            //------------------------------------------------------------------------------
-            //    set up nav buttons
-            //------------------------------------------------------------------------------
-            if ( this.options.showNav === true ) {
-                var navHtml = '<nav><button class="' + this.options.navPrevElem.replace('.','') + '">Previous</button>';
-
-                if( this.options.navIncludeNumSlides === true ) {
-                    navHtml = navHtml + '<span class="' + this.options.navNumElem + '"><span class="current">1</span> of <span class="total">' +  + '</span>';
-                }
-
-                navHtml = navHtml + '<button class="' + this.options.navNextElem.replace('.','') + '">Next</button></nav>');
-
-                this.$element.append(navHtml);
+            if ( this.options.includeNav === true ) {
+                this.generateNav();
             }
+
+            if ( this.options.autoSlide === true ) {
+                var autoSliderTimer = setInterval( function() {
+                    that.autoSlide();
+                }, parseInt(this.options.waitTime,10) );
+            }
+
+            this.$element.on('click', this.options.navNextElem, function() {
+                that.next();
+            });
+
+            this.$element.on('click', this.options.navPrevElem, function() {
+                that.prev();
+            });
+        },
+
+        //----------------------------------------------------
+        //      set up any dimensions we need
+        //----------------------------------------------------
+        setDimensions: function() {
+            //console.log('set width of container: ', this.containerWidth);
+
+            this.$container.css({
+                width: this.containerWidth
+            });
+        },
+
+        //------------------------------------------------------------------------------
+        //    Let things slide on their own
+        //------------------------------------------------------------------------------
+        autoSlide: function() {
+            if ( this.currentSlide == this.totalSlidings ) {
+                this.disableNav(this.options.navPrevElem);
+                this.animateSlide('reset');
+                this.currentSlide = 1;
+            } else {
+                this.animateSlide('next');
+                this.updateNavNum();
+            }
+        },
+
+        //----------------------------------------------------
+        //      slide next
+        //----------------------------------------------------
+        next: function() {
+            console.log('start next, currentSlide: ', this.currentSlide);
+            //prevent animation queueing
+            if (this.$container.is(':animated') === true) {
+                return;
+            }
+
+            if ( this.currentSlide == this.totalSlidings ) {
+                this.disableNav(this.options.navNextElem);
+                return;
+            }
+
+            //interrupt the timer for auto if it's going
+            if (this.options.autoSlide === true) {
+                clearInterval(autoSliderTimer);
+            }
+
+            this.animateSlide('next');
+
+            //set timer going again if it's needed
+            if (this.options.autoSlide === true) {
+                autoSliderTimer = setInterval( function() {
+                    that.autoSlide();
+                }, parseInt(this.options.waitTime,10) );
+            }
+
+            this.currentSlide++;
+            this.updateNavNum();
+
+            if ( this.currentSlide == this.totalSlidings ) {
+                this.disableNav(this.options.navNextElem);
+                return;
+            } else {
+                this.disableNav('none');
+            }
+
+            console.log('end next, currentSlide: ', this.currentSlide);
+        },
+
+        //----------------------------------------------------
+        //      slide prev
+        //----------------------------------------------------
+        prev: function() {
+            console.log('start prev, currentSlide: ', this.currentSlide);
+
+            //prevent animation queueing
+            if (this.$container.is(':animated') === true) {
+                return;
+            }
+
+            if ( this.currentSlide == 1 ) {
+                this.disableNav(this.options.navPrevElem);
+                return;
+            }
+
+            //interrupt the timer for auto if it's going
+            if (this.options.autoSlide === true) {
+                clearInterval(autoSliderTimer);
+            }
+
+            this.animateSlide('prev');
+
+            //set timer going again if it's needed
+            if (this.options.autoSlide === true) {
+                autoSliderTimer = setInterval( function() {
+                    that.autoSlide();
+                }, parseInt(this.options.waitTime,10) );
+            }
+
+            this.currentSlide--;
+            this.updateNavNum();
+
+            if ( this.currentSlide == 1 ) {
+                this.disableNav(this.options.navPrevElem);
+                return;
+            } else {
+                this.disableNav('none');
+            }
+
+            console.log('end prev, currentSlide: ', this.currentSlide);
+        },
+
+        //----------------------------------------------------
+        //      disable nav when we reach either end
+        //----------------------------------------------------
+        disableNav: function(button) {
+            console.log('disable button: ', button);
+            if ( button == this.options.navNextElem ) {
+                $(this.options.navElem).find(this.options.navNextElem).addClass(this.options.navDisabledClass);
+                $(this.options.navElem).find(this.options.navPrevElem).removeClass(this.options.navDisabledClass);
+            } else if ( button == this.options.navPrevElem ) {
+                $(this.options.navElem).find(this.options.navNextElem).removeClass(this.options.navDisabledClass);
+                $(this.options.navElem).find(this.options.navPrevElem).addClass(this.options.navDisabledClass);
+            } else if ( button == 'none' ) {
+                $(this.options.navElem).find('button').removeClass(this.options.navDisabledClass);
+            }
+        },
+
+        //----------------------------------------------------
+        //      animate the slide
+        //----------------------------------------------------
+        animateSlide: function(direction) {
+            var distance = ( this.slideWidth * this.options.slidesAtOnce );
+
+            //console.log(distance, this.options.slidesAtOnce);
+
+            if ( direction == 'next' ) {
+                this.$container.animate({
+                    left: '-=' + distance
+                }, this.options.animationDuration, this.options.slideEasing);
+            } else if ( direction == 'prev' ) {
+                this.$container.animate({
+                    left: '+=' + distance
+                }, this.options.animationDuration, this.options.slideEasing);
+
+            } else if ( direction == 'reset' ) {
+                this.$container.animate({
+                    left: 0
+                }, this.options.animationDuration, this.options.slideEasing);
+            }
+        },
+
+        //----------------------------------------------------
+        //      update navigation
+        //----------------------------------------------------
+        updateNavNum: function() {
+            if (this.options.navIncludeNumSlides === true) {
+                this.$element.find(this.options.navElem + ' .current').text(this.currentSlide);
+                this.$element.find(this.options.navElem + ' .total').text(this.totalSlidings);
+
+                console.log(this.currentSlide, this.totalSlidings);
+            }
+        },
+
+        //----------------------------------------------------
+        //      generate nav html
+        //----------------------------------------------------
+        generateNav: function() {
+            var navElemDetails = '';
+
+            if ( this.options.navElem.match('^.') ) {
+                navElemDetails = 'class="' + this.options.navElem.replace('.','') + '"';
+            } else if ( this.options.navElem.match('^#') ) {
+                navElemDetails = 'id="' + this.options.navElem.replace('#','') + '"';
+            }
+
+            var navHtml = '<nav ' + navElemDetails + '><button role="button" type="button" class="' + this.options.navPrevElem.replace('.','') + ' ' + this.options.navDisabledClass + '">Previous</button>';
+
+            if( this.options.navIncludeNumSlides === true ) {
+                navHtml = navHtml + '<span class="' + this.options.navNumElem.replace('.','') + '"><span class="current">1</span> of <span class="total">' + this.totalSlidings + '</span></span>';
+            }
+
+            navHtml = navHtml + '<button role="button" type="button" class="' + this.options.navNextElem.replace('.','') + '">Next</button></nav>';
+
+            //console.log(navHtml);
+
+            this.$element.append(navHtml);
         }
     };
 
@@ -82,16 +273,17 @@
     $.fn.shlider.defaults = {
         'animationDuration' : 500,
         'slideEasing' : 'swing',
+        'container': '.container',
         'slide': '.slide',
         'includeNav' : true,
-        'navIncludeNumSlides' : false,
-        'navElem' : 'shliderNav',
+        'navIncludeNumSlides' : true,
+        'navElem' : '.shliderNav',
         'navNextElem' : '.shlideNext',
         'navPrevElem' : '.shlidePrev',
         'navNumElem' : '.shlideNum',
         'navDisabledClass': 'disabled',
         'slidesAtOnce' : 1,
-        'autoSlide' : false,
+        'autoSlide' : true,
         'waitTime' : 3000,
         'accessible': true
     };
