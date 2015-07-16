@@ -28,7 +28,8 @@ var config = {
                 dest: 'dist/css'
             },
             images: {
-                src: ['src/img/**/*']
+                src: ['src/img/**/*'],
+                dest: 'dist/'
             }
         }
     }
@@ -52,8 +53,8 @@ gulp.task('clean', function() {
 
 gulp.task('images', function() {
     return gulp.src(config.paths.images.src, { cwd: 'src' })
-        .pipe(plugins.changed(config.base.dest))
-        .pipe(plugins.copy(config.base.dest));
+        .pipe(plugins.changed(config.paths.images.dest))
+        .pipe(plugins.copy(config.paths.images.dest));
 });
 
 //----------------------------------------------------
@@ -114,7 +115,6 @@ gulp.task('html', function() {
     var c = config.paths.html;
 
     return gulp.src(c.src)
-        .on('error', plugins.util.log)
         .pipe(plugins.htmlcomb())
         .on('error', plugins.util.log)
         .pipe(plugins.if(productionMode, plugins.htmlmin({
