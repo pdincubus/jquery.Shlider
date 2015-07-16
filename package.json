@@ -1,0 +1,38 @@
+{
+  "name": "jquery.Shlider",
+  "version": "2.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-changed": "^1.2.1",
+    "gulp-copy": "0.0.2",
+    "gulp-htmlcomb": "0.0.1",
+    "gulp-htmlmin": "^1.1.1",
+    "gulp-if": "^1.2.5",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.4",
+    "gulp-watch": "^4.2.4",
+    "yargs": "^3.13.0"
+  },
+  "author": {
+    "name": "Phil Steer",
+    "homepage": "",
+    "twitter": "@pdincubus",
+    "dev": "Dev Name",
+    "design": "Design Name",
+    "management": "Project Management Name"
+  },
+  "licenses": {
+    "type": "Licence type"
+  }
+}
