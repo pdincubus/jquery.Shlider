@@ -21,7 +21,7 @@
             this.numSlides = this.$slides.length;
             this.totalSlidings = 0;
             this.distance = 0;
-            this.slideWidth = this.$slides.eq(0).width();
+            this.slideWidth = this.$slides.eq(0).outerWidth();
             this.containerWidth = ( this.slideWidth * this.numSlides );
             this.setup();
         },
