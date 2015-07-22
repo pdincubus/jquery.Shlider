@@ -43,32 +43,6 @@
             var that = this;
 
             this.checkSlidings();
-
-            //----------------------------------------------------
-            //      responsiveness-layout-niceness
-            //----------------------------------------------------
-            var reLayout = (function () {
-                var timers = {};
-                return function (callback, ms, uniqueId) {
-                    if (!uniqueId) {
-                        uniqueId = "Don't call this twice without a uniqueId";
-                    }
-                    if (timers[uniqueId]) {
-                        clearTimeout (timers[uniqueId]);
-                    }
-                    timers[uniqueId] = setTimeout(callback, ms);
-                };
-            })();
-
-            $(window).resize(function() {
-                reLayout(function() {
-                    that.currentSlide = 1;
-                    that.updateNavNum();
-                    that.recalculateVars();
-                    that.setDimensions();
-                }, 500, 'shlideresizing');
-            });
-
             this.setDimensions();
 
             if ( this.options.accessible === true ) {
@@ -91,6 +65,35 @@
 
             this.$element.on('click', this.options.navPrevElem, function() {
                 that.prev();
+            });
+
+            //----------------------------------------------------
+            //      responsiveness-layout-niceness
+            //----------------------------------------------------
+            var reLayout = (function () {
+                var timers = {};
+                return function (callback, ms, uniqueId) {
+                    if (!uniqueId) {
+                        uniqueId = "Don't call this twice without a uniqueId";
+                    }
+                    if (timers[uniqueId]) {
+                        clearTimeout (timers[uniqueId]);
+                    }
+                    timers[uniqueId] = setTimeout(callback, ms);
+                };
+            })();
+
+            $(window).resize(function() {
+                reLayout(function() {
+                    that.currentSlide = 1;
+                    that.disableNav(that.options.navPrevElem);
+                    that.updateNavNum();
+                    that.animateSlide('reset');
+                    that.recalculateVars();
+                    that.setDimensions();
+                    that.checkSlidings();
+
+                }, 500, 'shlideresizing');
             });
         },
 
@@ -115,7 +118,7 @@
         //      responsive stuff
         //----------------------------------------------------
         recalculateVars: function() {
-            this.slideWidth = this.$slides.eq(0).width();
+            this.slideWidth = this.$slides.eq(0).outerWidth(true);
             this.containerWidth = ( this.slideWidth * this.numSlides );
             this.checkSlidings();
 
