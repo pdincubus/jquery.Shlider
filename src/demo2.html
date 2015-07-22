@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                background: #000;
+                font: 14px 'helvetica neue', helvetica, arial, verdana, sans-serif;
+                margin: 0;
+            }
+
+            .shlider {
+                width: 1000px;
+                height: 360px;
+                position: relative;
+                overflow: hidden;
+                margin: 30px auto;
+            }
+
+            .shlider .container {
+                position: relative;
+                width: auto;
+                height: 330px;
+            }
+
+            .shlider .slide {
+                float: left;
+                width: 230px;
+                height: 100%;
+                margin-right: 20px;
+                position: relative;
+            }
+
+            .shlider .slide:last-of-type {
+                margin-right: 0;
+            }
+
+            .shlider .slide img {
+                position: absolute;
+                min-height: 100%;
+                min-width: 100%;
+                top: 50%;
+                left: 50%;
+                -webkit-transform: translate(-50%,-50%);
+                -moz-transform: translate(-50%,-50%);
+                -ms-transform: translate(-50%,-50%);
+                -o-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+            }
+
+            .shliderNav {
+                height: 30px;
+                clear: both;
+                position: relative;
+                background: red;
+                text-align: center;
+            }
+
+            .shliderNav button {
+                border: 0;
+                padding: 10px;
+                text-align: center;
+                color: #fff;
+                background-color: blue;
+                width: 25%;
+                display: inline-block;
+            }
+
+            .shliderNav button.disabled {
+                color: #000;
+                background-color: #ccc;
+            }
+
+            @media screen and (min-width: 1280px) {
+                .shlider {
+                    width: 1200px;
+                }
+
+                .shlider .slide {
+                    width: 280px;
+                }
+            }
+
+            @media screen and (min-width: 768px) and (max-width: 1023px) {
+                .shlider {
+                    width: 700px;
+                }
+
+                .shlider .slide {
+                    width: 330px;
+                }
+            }
+
+            @media screen and (min-width: 535px) and (max-width: 767px) {
+                .shlider {
+                    width: 500px;
+                }
+            }
+
+            @media screen and (max-width: 534px) {
+                .shlider {
+                    width: 280px;
+                }
+
+                .shlider .slide {
+                    width: 280px;
+                    margin-right: 0;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="shlider">
+            <div class="container">
+                <div class="slide">
+                    <img src="img/6881280664_3da4704890-2.jpg" alt="">
+                </div>
+                <div class="slide">
+                    <img src="img/7181531455_a01b90f87d-2.jpg" alt="">
+                </div>
+                <div class="slide">
+                    <img src="img/7551308320_dbbb75c71b-2.jpg" alt="">
+                </div>
+                <div class="slide">
+                    <img src="img/7551311698_666de2a3a8-2.jpg" alt="">
+                </div>
+                <div class="slide">
+                    <img src="img/7581409432_972b80d832-2.jpg" alt="">
+                </div>
+                <div class="slide">
+                    <img src="img/6881280664_3da4704890-2.jpg" alt="">
+                </div>
+                <div class="slide">
+                    <img src="img/6881280664_3da4704890-2.jpg" alt="">
+                </div>
+                <div class="slide">
+                    <img src="img/7181531455_a01b90f87d-2.jpg" alt="">
+                </div>
+                <div class="slide">
+                    <img src="img/7551308320_dbbb75c71b-2.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <button type="button" role="button" id="destroy">Destroy</button>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script type="text/javascript" src="js/Shlider.js"></script>
+        <script>
+            $(window).load(function() {
+                $('.shlider').shlider({
+                    'animationDuration' : 500,
+                    'slideEasing' : 'swing',
+                    'container': '.container',
+                    'slide': '.slide',
+                    'includeNav' : true,
+                    'navIncludeNumSlides' : true,
+                    'navElem' : '.shliderNav',
+                    'navNextElem' : '.shlideNext',
+                    'navPrevElem' : '.shlidePrev',
+                    'navNumElem' : '.shlideNum',
+                    'navDisabledClass': 'disabled',
+                    'autoSlide' : true,
+                    'waitTime' : 3000,
+                    'accessible': true,
+                    'singleSlideMode': true,
+                    'lastMarginRemove': true
+                });
+            });
+
+            $('#destroy').on('click', function() {
+                $('.shlider').shlider('destroy');
+            });
+        </script>
+    </body>
+</html>
