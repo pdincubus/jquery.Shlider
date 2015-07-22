@@ -21,8 +21,17 @@
             this.numSlides = this.$slides.length;
             this.totalSlidings = 0;
             this.distance = 0;
-            this.slideWidth = this.$slides.eq(0).outerWidth();
-            this.containerWidth = ( this.slideWidth * this.numSlides );
+            this.slideWidth = this.$slides.eq(0).outerWidth(true);
+
+            if ( this.options.lastMarginRemove === true ) {
+                var slideMargin = parseInt(this.$slides.eq(0).css('marginRight'), 10);
+                this.containerWidth = ( this.slideWidth * this.numSlides ) - slideMargin;
+            } else {
+                this.containerWidth = ( this.slideWidth * this.numSlides );
+            }
+
+            var autoSliderTimer;
+
             this.setup();
         },
 
@@ -71,7 +80,7 @@
             }
 
             if ( this.options.autoSlide === true ) {
-                var autoSliderTimer = setInterval( function() {
+                autoSliderTimer = setInterval( function() {
                     that.autoSlide();
                 }, parseInt(this.options.waitTime,10) );
             }
@@ -126,12 +135,12 @@
         //------------------------------------------------------------------------------
         autoSlide: function() {
             if ( this.currentSlide == this.totalSlidings ) {
-                this.disableNav(this.options.navPrevElem);
-                this.animateSlide('reset');
                 this.currentSlide = 1;
-            } else {
-                this.animateSlide('next');
+                this.disableNav(this.options.navPrevElem);
                 this.updateNavNum();
+                this.animateSlide('reset');
+            } else {
+                this.next();
             }
         },
 
@@ -139,6 +148,8 @@
         //      slide next
         //----------------------------------------------------
         next: function() {
+            var that = this;
+
             //prevent animation queueing
             if (this.$container.is(':animated') === true) {
                 return;
@@ -328,6 +339,7 @@
         'singleSlideMode': true,
         'autoSlide' : true,
         'waitTime' : 3000,
-        'accessible': true
+        'accessible': true,
+        'lastMarginRemove': false
     };
 }(window.jQuery);
