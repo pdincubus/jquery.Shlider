@@ -22,6 +22,7 @@
             this.totalSlidings = 0;
             this.distance = 0;
             this.slideWidth = this.$slides.eq(0).outerWidth(true);
+            this.slidesPerScreen = 1;
 
             if ( this.options.lastMarginRemove === true ) {
                 var slideMargin = parseInt(this.$slides.eq(0).css('marginRight'), 10);
@@ -31,7 +32,6 @@
             }
 
             var autoSliderTimer;
-
             this.setup();
         },
 
@@ -98,7 +98,12 @@
             if ( this.options.singleSlideMode == true ) {
                 this.totalSlidings = this.numSlides;
                 this.distance = this.slideWidth;
+                this.slidesPerScreen = Math.ceil(this.$element.width() / this.$slides.eq(0).outerWidth(true));
                 //console.log('single slide mode. distance: ', this.distance, ' , totalSlidings: ', this.totalSlidings );
+
+                if ( this.options.singleSlideMode === true && this.options.singleSlideModePreventSpace === true ) {
+                    this.totalSlidings = (this.totalSlidings - this.slidesPerScreen) + 1;
+                }
             } else {
                 this.totalSlidings = Math.ceil(this.containerWidth / this.$element.width());
                 this.distance = this.$element.width();
@@ -189,6 +194,8 @@
         //      slide prev
         //----------------------------------------------------
         prev: function() {
+            var that = this;
+
             //prevent animation queueing
             if (this.$container.is(':animated') === true) {
                 return;
@@ -340,6 +347,7 @@
         'autoSlide' : true,
         'waitTime' : 3000,
         'accessible': true,
-        'lastMarginRemove': false
+        'lastMarginRemove': false,
+        'singleSlideModePreventSpace': true
     };
 }(window.jQuery);
